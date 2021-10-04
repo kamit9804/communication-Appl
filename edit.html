@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Document</title>
+    <style>
+        .ex8 {
+            padding: 8px 126px;
+            size: 30px;
+        }
+
+        .ex8:hover {
+            background-color: white;
+        }
+    </style>
+    <script>
+
+        var getItemFromLocalStorage = localStorage.getItem("userList");
+        var user = JSON.parse(getItemFromLocalStorage);
+        console.log(JSON.parse(getItemFromLocalStorage));
+
+        var locationPath = window.location.href;
+        console.log(locationPath);
+        var path = locationPath.split("?");
+        console.log(path);
+        var getId = path[1].split("=");
+
+        console.log("is is" + getId);
+
+        // filter based on Id 
+
+        for (var i = 0; i < user.length; i++) {
+
+            if (user[i].id == getId) {
+                var filterData = { // dynamic
+                    id: user[i].id,
+                    name: user[i].name,
+                    email: user[i].Email
+                }
+
+            }
+        }
+
+        function update() {
+
+            filterData.name = document.getElementById("username").value;
+            filterData.email = document.getElementById("email").value;
+            console.log(filterData);
+
+            for (var i = 0; i < user.length; i++) {
+                if (user[i].id == getId) {
+                    user[i].name = filterData.name;
+                    user[i].email = filterData.email;
+
+                }
+            }
+            console.log(user);
+            var userString = JSON.stringify(user);
+            localStorage.setItem("userList", userString);
+            window.location.href = 'usermanagement.html';
+        }
+    </script>
+
+</head>
+
+<body>
+
+    <body>
+        <div>
+            <table>
+                <tr>
+                    <button class=ex8>Group Chat</button>
+                    <button class=ex8>Manage Users</button>
+                    <button class=ex8>Manage Documents</button>
+                    <button class=ex8 onclick="window.location.href = 'index.html';">Logout</button>
+                </tr>
+        </div>
+        <table align='center'>
+            <th>
+                <h1 style="font-family: sans-serif; justify-content: center;"><b>
+                        Edit User Information</b></h>
+                    <br>
+                    <br>
+            </th>
+            <tr>
+                <td>
+                    <b style="font-family: sans-serif;"> Full Name &nbsp; &nbsp;&nbsp; &nbsp;</b>
+
+                    <input type="text" id="username" name="newName"
+                        style=" width: 230px; height: 30px; border-radius: 10px; border: 2px solid;">
+                    <br>
+                    <br>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b style="font-family: sans-serif;"> Email &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+                        &nbsp;&nbsp;</b>
+
+                    <input type="text" id="email" name="newEmail"
+                        style=" width: 230px; height: 30px; border-radius: 10px; border: 2px solid;">
+                    <br>
+                    <br>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="Save" onclick="update();" style="text-align: center; width: 120px; height: 33px; 
+                    color: black; border-radius: 10px; background-color: cyan; font-size: large; font-family: sans-serif; border: solid;
+                    margin-left: 150px;">
+                </td>
+            </tr>
+            <script>
+                document.getElementById('username').value = filterData.name;
+                document.getElementById('email').value = filterData.email;
+            </script>
+
+        </table>
+    </body>
+
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        .ex8 {
+            padding: 8px 125px;
+            size: 30px;
+        }
+
+        .ex8:hover {
+            background-color: white;
+        }
+
+        .table {
+            size: 500px;
+            width: 1350px;
+            background-color: whitesmoke;
+            height: max-content;
+
+        }
+
+        .ex1 {
+            padding: 12px 168px;
+            size: 30px;
+            background-color: rgb(202, 198, 189);
+        }
+
+        .form-section h1 {
+            margin-bottom: 50px;
+        }
+    </style>
+    <div>
+        <table>
+            <tr>
+                <button class=ex8 onclick="window.location.href = 'Group-chat.html';">Group Chat</button>
+                <button class=ex8 onclick="window.location.href = 'usermanagement.html';">Manage Users</button>
+                <button class=ex8 onclick="window.location.href = 'documents.html';">Manage Documents</button>
+                <button class=ex8 onclick="window.location.href = 'logout.html';">Logout</button>
+            </tr>
+        </table>
+        <div class="form-section">
+            <h1 style="margin-left: 650px; margin-top: 100px"> Upload
+            </h1>
+            <form action="Manage Document.html" onsubmit="return validation()">
+
+                <b style="margin-left: 500px; margin-top: 100px">File Discription:&nbsp;&nbsp;</b> <input type="text"
+                    placeholder="Enter Label" size="25">
+                <br><br><br>
+
+                <b style="margin-left: 500px; margin-top: 100px">file Upload&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b> <input type="file"> <br>
+
+                <button style="margin-left: 500px; margin-top: 30px">Uploads Now</button> &nbsp;&nbsp;&nbsp;&nbsp;
+                <button>Cancel</button>
+            </form>
+
+        </div>
+
+</head>
+</body>
+
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Document</title>
+    <style>
+        .ex8 {
+            padding: 8px 126px;
+            size: 30px;
+        }
+
+        .ex8:hover {
+            background-color: white;
+        }
+    </style>
+    <script>
+
+        var getItemFromLocalStorage = localStorage.getItem("userListD");
+        var user = JSON.parse(getItemFromLocalStorage);
+        console.log(JSON.parse(getItemFromLocalStorage));
+
+        var locationPath = window.location.href;
+        console.log(locationPath);
+        var path = locationPath.split("?");
+        console.log(path);
+        var getId = path[1].split("=");
+
+        console.log("is is" + getId);
+
+        // filter based on Id 
+
+        for (var i = 0; i < user.length; i++) {
+
+            if (user[i].id == getId) {
+                var filterData = { // dynamic
+                    id: user[i].id,
+                    label: user[i].label
+                }
+            }
+        }
+
+        function update() {
+
+
+            filterData.label = document.getElementById("label").value;
+            console.log(filterData);
+
+            for (var i = 0; i < user.length; i++) {
+                if (user[i].id == getId) {
+                    user[i].label = filterData.label;
+
+                }
+            }
+            console.log(user);
+            var userString = JSON.stringify(user);
+            localStorage.setItem("userListD", userString);
+            window.location.href = 'documents.html';
+        }
+    </script>
+
+</head>
+
+<body>
+
+
+    <body>
+        <div>
+            <table>
+                <tr>
+                    <button class=ex8>Group Chat</button>
+
+
+                    <button class=ex8>Manage Users</button>
+
+                    <button class=ex8>Manage Documents</button>
+                    <button class=ex8 onclick="window.location.href = 'index.html';">Logout</button>
+                </tr>
+        </div>
+        <table align='center'>
+
+            <th style="border-radius: 90px;">
+                <h1 style="font-family: sans-serif; justify-content: center; margin-top: 40px;"><b>
+                        Edit </b></h>
+                    <br>
+                    <br>
+            </th>
+            <tr>
+                <td>
+                    <b style="font-family: sans-serif;"> File Description &nbsp; &nbsp;&nbsp;
+                        &nbsp;&nbsp;</b>
+
+                    <input type="text" id="label" name="Label"
+                        style=" margin-top: -80px; width: 290px; height: 30px; border-radius: 10px; border: 2px solid;">
+                    <br>
+                    <br>
+                </td>
+            </tr>
+            <tr>
+
+                <td>
+
+                    <input type="submit" value="Save" onclick="update();" style="text-align: center; width: 80px; height: 33px; 
+                    color: black; border-radius: 10px; background-color: cyan; font-size: large; font-family: sans-serif; border: solid;
+                    margin-left: 200px; margin-top: 60px;">
+                    <input type="submit" value="Cancel" onclick="window.location.href = 'documents.html';" style="text-align: center; width: 80px; height: 33px; 
+                     color: black; border-radius: 10px; background-color: cyan; font-size: large; font-family: sans-serif; border: solid;
+                     margin-left: 18px; margin-top: 60px;">
+
+                </td>
+                </div>
+            </tr>
+            <script>
+                document.getElementById('label').value = filterData.label;
+            </script>
+
+        </table>
+
+    </body>
+
+</html>

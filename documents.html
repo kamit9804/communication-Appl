@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        .ex8 {
+            padding: 8px 126px;
+            size: 30px;
+        }
+
+        .ex8:hover {
+            background-color: white;
+        }
+
+        .table {
+            border: 10;
+            size: 100px;
+            width: 1350px;
+            background-color: whitesmoke;
+        }
+
+        .ex1 {
+            padding: 15px 110px;
+            size: 10px;
+            background-color: rgb(202, 200, 197);
+        }
+    </style>
+    <div>
+        <table>
+            <tr>
+                <button class=ex8 onclick="window.location.href = 'Group-chat.html';">Group Chat</button>
+                <button class=ex8 onclick="window.location.href = 'usermanagement.html';">Manage Users</button>
+                <button class=ex8 onclick="window.location.href = 'documents.html';">Manage Documents</button>
+                <button class=ex8 onclick="window.location.href = 'logout.html';">Logout</button>
+            </tr>
+
+    </div>
+    </table>
+    <script>
+
+        var userListD = [
+            {
+                id: 1,
+                label: "Sales Report",
+                FileName: "sales-Sep2014.xls",
+                actions: "Edit | Delete"
+            },
+            {
+                id: 2,
+                label: "Quaterly Summary",
+                FileName: "SummaryQ4-2014.ppt",
+                actions: "Edit | Delete"
+            },
+            {
+                id: 3,
+                label: "Projection 2013-14",
+                FileName: "SalesProfitProjection.xls",
+                actions: "Edit | Delete"
+            }
+        ];
+        var userListDString = JSON.stringify(userListD);
+        var userListDFromLocalStorage = JSON.parse(localStorage.getItem("userListD")); // get item in local storage
+        console.log(userListDFromLocalStorage);
+
+        if (userListDFromLocalStorage.length == 0) {
+            localStorage.setItem('userListD', JSON.stringify(userListD)); // set item in local storage
+            window.location.reload(); // page refresh 
+        }
+        function deleteUser(id) {
+            var activeId = [];
+            activeId.push(id);
+            var confirmMessage = confirm("Do you really want to delete?");
+            if (confirmMessage) {
+                var updatedUserListD = userListDFromLocalStorage.filter(function (item) {
+                    return activeId.indexOf(item.id) === -1;
+                });
+                window.location.reload(); // page refresh 
+                localStorage.setItem('userListD', JSON.stringify(updatedUserListD)); // update local storage
+            }
+        }
+    </script>
+</head>
+
+<body>
+
+    <h1>My Uploads</h1>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <table border="1" class="table">
+        <tr>
+
+            <td class="ex1">Id</td>
+            <td class="ex1">Label</td>
+            <td class="ex1">FileName</td>
+            <td class="ex1">Actions</td>
+        </tr>
+        <script>
+            for (i = 0; i < userListDFromLocalStorage.length; i++) {
+                document.write("<tr>");
+                document.write("<td>" + userListDFromLocalStorage[i].id + "</td>");
+                document.write("<td>" + userListDFromLocalStorage[i].label + "</td>");
+                document.write("<td>" + userListDFromLocalStorage[i].FileName + "</td>");
+                document.write(`<td><a href="./editdocuments.html?${userListDFromLocalStorage[i].id}">Edit</a><a onclick="deleteUser(${userListDFromLocalStorage[i].id})">Delete</a></td>`);
+                document.write("<tr>");
+            }
+        </script>
+    </table>
+    <div style="margin-top: 250px;">
+
+        <a href="addUpload.html">
+            <button style="background-color: aqua;">+Add Upload</button></td></a>
+    </div>
+</body>
+
+</html>

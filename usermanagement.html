@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        .ex8 {
+            padding: 8px 126px;
+            size: 30px;
+        }
+
+        .ex8:hover {
+            background-color: white;
+        }
+
+        .table {
+            size: 500px;
+            width: 1350px;
+            background-color: whitesmoke;
+            height: max-content;
+
+        }
+
+        .ex1 {
+            padding: 15px 115px;
+            size: 30px;
+            background-color: rgb(202, 198, 189);
+        }
+    </style>
+    <div>
+        <table>
+            <tr>
+                <button class=ex8 onclick="window.location.href = 'Group-chat.html';">Group Chat</button>
+
+                <button class=ex8 onclick="window.location.href = 'usermanagement.html';">Manage Users</button>
+
+                <button class=ex8 onclick="window.location.href = 'documents.html';">Manage Documents</button>
+
+                <button class=ex8 onclick="window.location.href = 'index.html';">Logout</button>
+            </tr>
+
+    </div>
+    </table>
+    <script>
+        var userList = [
+            {
+                id: 1,
+                name: "Text User",
+                email: "textuser@gmail.com",
+                actions: "Edit/Delete"
+            },
+            {
+                id: 2,
+                name: "Anne Hunter",
+                email: "anne.hunter@gmail.com",
+                actions: "Edit/Delete"
+            },
+            {
+                id: 3,
+                name: "Jale Boser",
+                email: "jale@gmail.com",
+                actions: "Edit/Delete"
+            }
+        ];
+        var userListString = JSON.stringify(userList);
+        var userListFromLocalStorage = JSON.parse(localStorage.getItem("userList")); // get item in local storage
+        console.log(userListFromLocalStorage);
+
+        if (userListFromLocalStorage.length == 0) {
+            localStorage.setItem('userList', JSON.stringify(userList)); // set item in local storage
+            window.location.reload(); // page refresh 
+        }
+
+        function deleteUser(id) {
+            var activeId = [];
+            activeId.push(id);
+            var confirmMessage = confirm("Do you really want to delete?");
+            if (confirmMessage) {
+                var updatedUserList = userListFromLocalStorage.filter(function (item) {
+                    return activeId.indexOf(item.id) === -1;
+                });
+                window.location.reload(); // page refresh 
+                localStorage.setItem('userList', JSON.stringify(updatedUserList)); // update local storage
+            }
+        }
+
+    </script>
+
+</head>
+
+<body>
+
+    <h1>Users</h1>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <table border="2" class="table">
+        <tr>
+
+            <td class="ex1">Id</td>
+            <td class="ex1">Name</td>
+            <td class="ex1">Email</td>
+            <td class="ex1">Actions</td>
+        </tr>
+        <script>
+            for (i = 0; i < userListFromLocalStorage.length; i++) {
+                document.write("<tr>");
+                document.write("<td>" + userListFromLocalStorage[i].id + "</td>");
+                document.write("<td>" + userListFromLocalStorage[i].name + "</td>");
+                document.write("<td>" + userListFromLocalStorage[i].email + "</td>");
+                document.write(`<td><a href="./edit.html?${userListFromLocalStorage[i].id}">Edit</a><a onclick="deleteUser(${userListFromLocalStorage[i].id})">Delete</a></td>`);
+                document.write("<tr>");
+            }
+        </script>
+    </table>
+</body>
+
+</html>
